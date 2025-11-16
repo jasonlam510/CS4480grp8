@@ -1,0 +1,19 @@
+---
+alwaysApply: true
+---
+You are working on a university Big Data course project:
+
+  CS4480grp8: Northern Lights Video Analysis
+
+Non-negotiable architectural constraints:
+
+- Always design and reason as if this is a **Big Data ecosystem** project, even if sample data is small.
+- The system must **simulate a distributed memory model** using **Docker Compose** with multiple containers (HDFS, HBase, YARN, Spark).
+- The philosophy is **“Scale out, not up”**:
+  - Prefer adding more worker containers over giving one container more CPU/RAM.
+  - When suggesting performance improvements, talk about horizontal scaling, partitioning, and parallelism.
+- Never collapse the system into a single-machine, monolithic Python script or a local-filesystem pipeline as the “final” design.
+- All suggestions, refactors, and new files must preserve and respect:
+  - Distributed storage and computation.
+  - Fault tolerance, replication, and high-throughput access.
+  - Parallel execution and locality-aware scheduling.

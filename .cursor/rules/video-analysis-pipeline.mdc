@@ -1,0 +1,50 @@
+---
+description: Enforce the 3-stage Video Analysis workflow and folder organization for CS4480grp8.
+globs:
+  - "src/**"
+  - "scripts/**"
+  - "notebooks/**"
+alwaysApply: false
+---
+
+The project must follow **three strict stages** for Video Analysis, and code organization should reflect them:
+
+1) Stage 1: Search and Retrieval (Python)
+   - Python scripts handle web scraping / API calls (e.g., YouTube API) to discover and download Northern Lights videos using key terms.
+   - Outputs:
+     - Raw video files -> **HDFS** (e.g., `/hdfs_raw_data/`).
+     - Initial metadata (IDs, URLs, titles, tags, timestamps) -> **HBase**.
+
+2) Stage 2: Video Preprocessing (Python / Jupyter Notebooks)
+   - Python scripts and **Jupyter notebooks** parse and transform **unstructured video data**.
+   - Include video-specific preprocessing tasks:
+     - **Audio removal** from video files.
+     - **Video resizing** (resolution adjustment, aspect ratio normalization).
+     - **Frame extraction** for temporal analysis.
+     - **Feature computation** (e.g., optical flow, color histograms, frame-level features).
+     - Metadata extraction and normalization from video metadata.
+     - Use **regular expressions** where appropriate to extract structured fields from text metadata (e.g., dates, location tags, hashtags).
+   - Outputs:
+     - Processed / feature artifacts -> **HDFS** (e.g., `/hdfs_processed_data/`).
+     - Enriched structured metadata -> **HBase** (new columns / families).
+
+3) Stage 3: Model Training (PySpark)
+   - PySpark jobs perform **distributed model training** using data from Hadoop storage (HDFS + HBase).
+   - Inputs:
+     - Large video feature datasets from HDFS (processed frames, extracted features, etc.).
+     - Metadata lookups and filters from HBase.
+   - Design training algorithms to run in a distributed manner (no single-machine assumptions).
+   - Leverage Spark's distributed computing capabilities for:
+     - Parallel feature processing across partitions.
+     - Distributed model training (e.g., distributed MLlib algorithms).
+     - Iterative training processes that benefit from in-memory caching.
+
+Code organization:
+- Prefer grouping by stage, e.g.:
+  - `src/stage1_retrieval/`
+  - `src/stage2_preprocessing/`
+  - `src/stage3_training/`
+- When adding new modules or scripts, place them under the appropriate stage folder and clearly document which stage they belong to.
+- Jupyter notebooks for preprocessing should be placed in `notebooks/stage2_preprocessing/` or similar.
+
+Do not merge all stages into a single "mega script" that hides the conceptual pipeline.

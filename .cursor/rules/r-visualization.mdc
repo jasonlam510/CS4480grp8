@@ -1,0 +1,36 @@
+---
+description: Require R (with ggplot2 recommended) for final analysis and reporting.
+globs:
+  - "analysis/**"
+  - "reports/**"
+  - "notebooks/**"
+  - "r/**"
+  - "**/*.R"
+alwaysApply: false
+---
+
+Visualization and reporting constraints for CS4480grp8:
+
+- Final analysis and reporting must be done in **R**.
+- Python plotting libraries (matplotlib, seaborn, etc.) may be used only for quick debugging, not as the final deliverable.
+
+When generating or editing R code:
+- Prefer using **ggplot2** for high-quality graphics.
+- Ensure every plot has:
+  - A clear title.
+  - Axis labels with units where relevant.
+  - Legends and readable scales.
+
+Visuals should support **Exploratory Data Analysis (EDA)**:
+- Include distributions (e.g., counts of videos by time, location, tags).
+- Include temporal patterns (e.g., frequency of Northern Lights videos over time).
+- Include relationships between variables (e.g., location vs. sentiment, tag co-occurrence).
+
+Audience targeting:
+- Provide both:
+  - **Technical plots** for data scientists (multi-facet plots, model performance metrics, density/violin plots, etc.).
+  - **Simpler plots** for nontechnical stakeholders (clean bar charts, line charts, simple summaries).
+
+Data flow into R:
+- Export aggregated/summarized results from Spark via HDFS-backed formats (CSV, Parquet) or equivalent.
+- Avoid one-off local exports in random paths; prefer documented, reproducible export locations.
