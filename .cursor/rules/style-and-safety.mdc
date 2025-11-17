@@ -1,20 +1,15 @@
 ---
-description: General style, safety, and discipline rules for CS4480grp8.
+description: General style and safety rules for CS4480grp8.
 globs:
   - "**/*"
 alwaysApply: false
 ---
 
-General guidelines to keep the project consistent:
+**Style**:
+- Prefer small, composable modules over monolithic scripts
+- Preserve existing directory structure
+- Document non-obvious code in comments
 
-- Prefer small, composable modules over large monolithic scripts.
-- Preserve existing directory structure and naming conventions whenever possible.
-- Document non-obvious commands, configs, and assumptions in comments or README files; suggest updates when you change behavior.
-- When resolving ambiguity, choose the option that better demonstrates:
-  - Distributed Big Data principles.
-  - Fault tolerance and replication.
-  - Parallelism and data locality.
-
-Security / secrets:
-- Never hardcode API keys, tokens, or secrets into the repo.
-- Always recommend environment variables or config files that are ignored by version control (e.g., `.env`, local config).
+**Security**:
+- Never hardcode API keys or secrets
+- Use environment variables or `.env` files (gitignored)

@@ -6,32 +6,24 @@ globs:
   - "src/**/*.py"
   - "jobs/**/*.py"
   - "scripts/**/spark*.sh"
+  - "notebooks/**"
 alwaysApply: false
 ---
 
-Processing constraints for CS4480grp8:
+**REQUIRED**: Every PySpark script/notebook MUST include a configuration section:
+```python
+# CONFIGURATION
+TOTAL_WORKER_CORES = 20  # 10 workers × 2 vCPU
+```
 
-Engine:
-- All major data processing, analytics, and model training must use **Apache Spark via PySpark**.
-- Do not move the core big data pipeline to pure pandas or single-node Python loops. Python-only code is acceptable for orchestration, scraping, and small utilities.
+**Use this configuration**:
+- Set `spark.default.parallelism = TOTAL_WORKER_CORES`
+- Set `spark.sql.shuffle.partitions = TOTAL_WORKER_CORES`
+- Create RDD partitions based on `TOTAL_WORKER_CORES`
+- **Never hardcode parallelism values**
 
-YARN:
-- Spark must run under **YARN** as the resource manager.
-- Use YARN mode (e.g., `--master yarn`) for Spark job submissions and configs.
-- When writing or updating job scripts, show how the **YARN ResourceManager** arbitrates resources among applications.
-
-Parallelism & Locality:
-- Aim for **parallel execution** across multiple executors and cores.
-- Design transformations to work on partitioned data; avoid `.collect()` or `.toPandas()` on large datasets.
-- Consider data locality:
-  - Prefer reading from HDFS in a way that lets executors run close to the data.
-  - Avoid unnecessary shuffles and skew; use sensible partitioning keys.
-
-Iterative Algorithms & In-Memory Computing:
-- Model training jobs should use **iterative algorithms** (e.g., clustering, gradient-based methods, repeated passes over the corpus).
-- Leverage Spark’s in-memory capabilities (`cache`/`persist` on RDDs/DataFrames) and explain why this reduces disk IO.
-- Do not assume the entire dataset fits in driver memory.
-
-When proposing refactors:
-- Preserve or improve data parallelism and YARN integration.
-- If a suggested pattern would run only in `local[*]` or bypass YARN/HDFS, call that out as **not suitable** for the final project pipeline.
+**Processing**:
+- Use PySpark on YARN (`--master yarn`) for all major processing
+- Avoid `.collect()` or `.toPandas()` on large datasets
+- Design for partitioned, parallel execution
+- Use `cache`/`persist` for iterative algorithms

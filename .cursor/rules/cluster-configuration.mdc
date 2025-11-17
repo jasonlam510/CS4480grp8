@@ -1,0 +1,23 @@
+---
+description: Document Hadoop/Spark cluster configuration for CS4480grp8.
+globs:
+  - "notebooks/**"
+  - "src/**/*.py"
+  - "scripts/**/*.py"
+  - "jobs/**/*.py"
+alwaysApply: false
+---
+
+## Cluster Configuration
+
+**Platform**: GCP Dataproc
+- Hadoop 3.3, Spark 3.5
+- 1 Master + 10 Workers
+- Each node: 2 vCPU, 8GB RAM
+- **Total Worker Cores: 20** (10 workers × 2 vCPU)
+
+**HDFS**: Default filesystem `hdfs:///`
+**YARN**: Resource manager for Spark
+**Spark**: Runs on YARN (`--master yarn`)
+
+**Key Point**: Always use **total worker cores** (20) for parallelism configuration, not total nodes.
