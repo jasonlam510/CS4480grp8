@@ -1,0 +1,58 @@
+# Environment variables
+*.env
+*.env.local
+
+# HTCC Hondor
+*.err
+*.out
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+venv/
+env/
+ENV/
+.venv
+
+# Jupyter Notebooks
+.ipynb_checkpoints
+*.ipynb_checkpoints
+
+# Data files (local testing only)
+data/
+*.mp4
+*.avi
+*.mov
+*.mkv
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Docker volumes (data persists in named volumes)
+# But ignore any local data mounts
+
+# Logs
+*.log
+logs/
+
+# R
+.Rhistory
+.RData
+.Ruserdata
+
+# Temporary files
+tmp/
+temp/
+*.tmp
+

@@ -1,0 +1,46 @@
+# HTCondor Submit File for extract_frames.sh benchmark mode
+# 
+# System specs:
+# - 28 cores, 56 threads
+# - 10GB RAM
+# - Cluster limit: 32GB memory
+
+# Executable (use absolute path)
+executable = /home/bsft22/chlam368/CS4480/extract_frames.sh
+
+# Arguments: -r 10 -f 1 -t 0 --benchmark --benchmark_parallel_list "1 2 4 8 12 16 20"
+# Using absolute paths for input and output
+# Note: Quotes must be escaped in HTCondor submit files
+arguments = -i /home/bsft22/chlam368/CS4480/TheArcticSkies -o /home/bsft22/chlam368/CS4480/frames_output -r 10 -f 1 -t 0 --benchmark --benchmark_parallel_list \"1 2 4 8 12 16 20\"
+
+# Resource requirements
+# Note: Cluster has 1 CPU per slot, so requesting 1 CPU
+# The script uses -t 0 which will use all available cores on the assigned machine
+request_cpus = 1
+request_memory = 30GB
+request_disk = 2GB
+
+# Set initial directory to submission directory so CSV is created there
+initialdir = /home/bsft22/chlam368/CS4480
+
+# Output files
+output = extract_frames.out
+error = extract_frames.err
+log = extract_frames.log
+
+# Transfer input files (if needed)
+# transfer_input_files = extract_frames.sh, TheArcticSkies
+
+# Transfer output files back
+# Disabled file transfers - assuming shared filesystem
+# Files will be written directly to the submission directory
+# should_transfer_files = YES
+# when_to_transfer_output = ON_EXIT
+# transfer_output_files = benchmark_results.csv, frames_output
+
+# Environment
+getenv = True
+
+# Queue the job
+queue
+
