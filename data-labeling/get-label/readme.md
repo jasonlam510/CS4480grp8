@@ -10,7 +10,7 @@
 This is the command I used to upload the frames to the bucket `cs4480-thearcticskies/frames`
 
 ```bash
-gcloud storage rsync --recursive /data/TheArcticSkies_frames gs://cs4480-thearcticskies/frames
+gcloud storage rsync --recursive data/TheArcticSkies_frames gs://cs4480-thearcticskies/frames
 ```
 
 ## Create a batch job for Gemini inference
