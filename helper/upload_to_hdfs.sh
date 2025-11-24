@@ -11,10 +11,29 @@
 # Example: ./upload_to_hdfs.sh data.zip /data
 # Note: The folder name will be auto-detected from the zip file contents
 
-# Configuration
-PROJECT="cs4480-grp8-478507"
-ZONE="us-central1-a"
-MASTER_NODE="cs4480-m"
+# Configuration - must be set via environment variables
+PROJECT="${DATAPROC_PROJECT}"
+ZONE="${DATAPROC_ZONE}"
+MASTER_NODE="${DATAPROC_MASTER_NODE}"
+
+# Validate required environment variables
+if [ -z "$PROJECT" ]; then
+    echo "Error: DATAPROC_PROJECT environment variable is required"
+    echo "Set it with: export DATAPROC_PROJECT='your-project-id'"
+    exit 1
+fi
+
+if [ -z "$ZONE" ]; then
+    echo "Error: DATAPROC_ZONE environment variable is required"
+    echo "Set it with: export DATAPROC_ZONE='us-central1-a'"
+    exit 1
+fi
+
+if [ -z "$MASTER_NODE" ]; then
+    echo "Error: DATAPROC_MASTER_NODE environment variable is required"
+    echo "Set it with: export DATAPROC_MASTER_NODE='your-master-node-name'"
+    exit 1
+fi
 
 # Check if correct number of arguments provided
 if [ $# -ne 2 ]; then
@@ -27,6 +46,11 @@ if [ $# -ne 2 ]; then
     echo "  3. Zip the folder: zip -r <folder_name>.zip <folder_name>/"
     echo ""
     echo "Note: The folder name inside the zip will be auto-detected."
+    echo ""
+    echo "Required environment variables:"
+    echo "  DATAPROC_PROJECT: GCP project ID"
+    echo "  DATAPROC_ZONE: GCP zone"
+    echo "  DATAPROC_MASTER_NODE: Dataproc master node name"
     exit 1
 fi
 
@@ -46,6 +70,9 @@ echo "Uploading to HDFS on GCP Dataproc"
 echo "=========================================="
 echo "Zip path: $ZIP_FILE"
 echo "HDFS path: $HDFS_PATH"
+echo "Project: $PROJECT"
+echo "Zone: $ZONE"
+echo "Master node: $MASTER_NODE"
 echo ""
 
 # Step 1: Upload zip path to master node
