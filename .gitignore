@@ -3,9 +3,9 @@
 *.env.local
 
 # data-labeling
-data-labeling/*.jsonl
-data-labeling/*.csv
-data-labeling/frames_urls.txt
+data-labeling/*/*.jsonl
+data-labeling/*/*.csv
+data-labeling/*/frames_urls.txt
 
 # HTCC Hondor
 *.err

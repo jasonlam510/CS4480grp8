@@ -17,12 +17,12 @@ gcloud storage rsync --recursive /data/TheArcticSkies_frames gs://cs4480-thearct
 
 1. Create a prompt.txt file
 
-Create a text file containing the prompt you want to use for image classification. Save it as `data-labeling/prompt.txt`.
+Create a text file containing the prompt you want to use for image classification. Save it as `data-labeling/get-label/prompt.txt`.
 
 2. Get a list of the `gs://` of the frames:
 
 ```bash
-gcloud storage ls --recursive 'gs://cs4480-thearcticskies/frames/**' > data-labeling/frames_urls.txt
+gcloud storage ls --recursive 'gs://cs4480-thearcticskies/frames/**' > data-labeling/get-label/frames_urls.txt
 ```
 
 3. Create the batch job
@@ -30,7 +30,7 @@ gcloud storage ls --recursive 'gs://cs4480-thearcticskies/frames/**' > data-labe
 Use this command to create a job (.jsonl):
 
 ```bash
-python3 data-labeling/create_batch_job.py data-labeling/prompt.txt data-labeling/frames_urls.txt data-labeling/batch_job.jsonl 0.0
+python3 data-labeling/get-label/create_batch_job.py data-labeling/get-label/prompt.txt data-labeling/get-label/frames_urls.txt data-labeling/get-label/batch_job.jsonl 0.0
 ```
 
 4. Submit the batch job
@@ -44,7 +44,7 @@ python3 data-labeling/create_batch_job.py data-labeling/prompt.txt data-labeling
 2. Use the script to get a readable CSV:
 
 ```bash
-python3 data-labeling/convert_predictions_to_csv.py <the path of the .jsonl>
+python3 data-labeling/get-label/convert_predictions_to_csv.py <the path of the .jsonl>
 ```
 
 3. Here you go! :)
