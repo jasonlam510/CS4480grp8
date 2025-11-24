@@ -99,25 +99,7 @@ ZIP_BASENAME_ESCAPED=$(printf '%q' "$ZIP_BASENAME")
 gcloud compute ssh ${MASTER_NODE} \
   --project=${PROJECT} \
   --zone=${ZONE} -- \
-  "cd ~ && \
-   ZIP_BASENAME=${ZIP_BASENAME_ESCAPED} && \
-   echo \"Unzipping \$ZIP_BASENAME...\" && \
-   unzip -q \"\$ZIP_BASENAME\" && \
-   echo '✓ Unzipped successfully' && \
-   FOLDER_NAME=\$(ls -d */ 2>/dev/null | head -1 | sed 's|/$||') && \
-   if [ -z \"\$FOLDER_NAME\" ] || [ ! -d \"\$FOLDER_NAME\" ]; then \
-     echo 'Error: Could not detect folder name from zip' && \
-     exit 1 && \
-   fi && \
-   echo \"Detected folder: \$FOLDER_NAME\" && \
-   echo 'Uploading to HDFS (this may take a while for large folders)...' && \
-   hdfs dfs -mkdir -p ${HDFS_PATH} && \
-   hdfs dfs -put \"\$FOLDER_NAME\" ${HDFS_PATH}/ && \
-   echo '✓ Uploaded to HDFS successfully' && \
-   rm -rf \"\$FOLDER_NAME\" && \
-   echo '✓ Cleaned up unzipped folder' && \
-   rm -f \"\$ZIP_BASENAME\" && \
-   echo '✓ Cleaned up zip path'"
+  "cd ~ && ZIP_BASENAME=${ZIP_BASENAME_ESCAPED} && echo \"Unzipping \$ZIP_BASENAME...\" && unzip -q \"\$ZIP_BASENAME\" && echo '✓ Unzipped successfully' && FOLDER_NAME=\$(ls -d */ 2>/dev/null | head -1 | sed 's|/$||') && if [ -z \"\$FOLDER_NAME\" ] || [ ! -d \"\$FOLDER_NAME\" ]; then echo 'Error: Could not detect folder name from zip'; exit 1; fi && echo \"Detected folder: \$FOLDER_NAME\" && echo 'Uploading to HDFS (this may take a while for large folders)...' && hdfs dfs -mkdir -p ${HDFS_PATH} && hdfs dfs -put \"\$FOLDER_NAME\" ${HDFS_PATH}/ && echo '✓ Uploaded to HDFS successfully' && rm -rf \"\$FOLDER_NAME\" && echo '✓ Cleaned up unzipped folder' && rm -f \"\$ZIP_BASENAME\" && echo '✓ Cleaned up zip path'"
 
 if [ $? -ne 0 ]; then
     echo "Error: Failed to process files on master node"
