@@ -2,6 +2,9 @@
 *.env
 *.env.local
 
+# benchmark
+benchmark/**/*.csv
+
 # data-labeling
 data-labeling/**/*.jsonl
 data-labeling/**/*.csv
