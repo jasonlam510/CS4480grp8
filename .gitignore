@@ -57,6 +57,14 @@ Thumbs.db
 *.log
 logs/
 
+# Model training - models and logs
+model-training/**/models/
+model-training/**/performance_logs/
+*.keras
+*_history.json
+*_performance.json
+checkpoint.keras
+
 # R
 .Rhistory
 .RData
