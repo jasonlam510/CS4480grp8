@@ -10,6 +10,11 @@ If you aim for a good grade in this course, please:
 
 Yet I haven't received the grade for this project(they aren't likely to tell you, if you are concerned about your grade you should email to ask them), what I have done might still be insightful to you.
 
+What I have done:
+- Compare the performance of different Hadoop cluster settings on FFmpeg frames extraction: 2 workers vs 10 workers
+- Compare the speed up of FFmpeg frame extraction when using different numbers of cores
+- Compare the performance of different batch sizes when training a CNN model with frames
+
 ## Env
 
 The bash scripts using the gcloud CLI require environment variables to be set:
